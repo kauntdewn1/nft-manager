@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Upload, Image, FileText, Send, Database, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import MintInterface from './MintInterface.jsx';
+import WalletManager from './WalletManager.jsx';
 
 export default function NFTManager() {
   const [nfts, setNfts] = useState([]);
@@ -14,6 +15,8 @@ export default function NFTManager() {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [newAttribute, setNewAttribute] = useState({ trait_type: '', value: '' });
+  const [selectedWallet, setSelectedWallet] = useState(null);
+  const [activeTab, setActiveTab] = useState('create'); // 'create', 'mint', 'wallets'
 
   useEffect(() => {
     loadSavedNFTs();
@@ -201,7 +204,43 @@ export default function NFTManager() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Tabs de Navegação */}
+        <div className="mb-6 flex gap-2 border-b border-white/20">
+          <button
+            onClick={() => setActiveTab('create')}
+            className={`px-6 py-3 font-medium transition-colors ${
+              activeTab === 'create'
+                ? 'text-white border-b-2 border-blue-400'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            Criar NFT
+          </button>
+          <button
+            onClick={() => setActiveTab('mint')}
+            className={`px-6 py-3 font-medium transition-colors ${
+              activeTab === 'mint'
+                ? 'text-white border-b-2 border-purple-400'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            Mint
+          </button>
+          <button
+            onClick={() => setActiveTab('wallets')}
+            className={`px-6 py-3 font-medium transition-colors ${
+              activeTab === 'wallets'
+                ? 'text-white border-b-2 border-green-400'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            Wallets
+          </button>
+        </div>
+
+        {/* Conteúdo das Tabs */}
+        {activeTab === 'create' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Formulário de Criação */}
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
@@ -394,8 +433,23 @@ export default function NFTManager() {
           </div>
 
           {/* Interface de Mint */}
-          <MintInterface />
+          <MintInterface selectedWallet={selectedWallet} />
         </div>
+        )}
+
+        {activeTab === 'mint' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="lg:col-span-2">
+              <MintInterface selectedWallet={selectedWallet} />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'wallets' && (
+          <div className="max-w-4xl mx-auto">
+            <WalletManager onWalletSelect={setSelectedWallet} />
+          </div>
+        )}
 
         {/* Status da Integração IPFS */}
         <div className="mt-8 bg-green-500/10 backdrop-blur-md rounded-xl p-6 border border-green-500/30">
