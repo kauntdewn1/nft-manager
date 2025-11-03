@@ -19,6 +19,7 @@
     "ipfs-upload": "./scripts/cli-upload.js"
   },
   "dependencies": {
+    "axios": "^1.13.1",
     "chalk": "^5.3.0",
     "commander": "^11.1.0",
     "cors": "^2.8.5",
