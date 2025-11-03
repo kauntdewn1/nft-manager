@@ -20,6 +20,13 @@ const __dirname = dirname(__filename);
 
 // Configurações de redes
 const NETWORKS = {
+  monad: {
+    name: 'Monad Testnet',
+    chainId: 10143,
+    rpc: 'https://testnet-rpc.monad.xyz',
+    explorer: 'https://testnet.monadexplorer.com',
+    opensea: 'https://testnets.opensea.io/assets/monad'
+  },
   polygon: {
     name: 'Polygon',
     chainId: 137,
@@ -58,7 +65,7 @@ program
   .description('NEØ.MINT - Sistema completo de criação e mint de NFTs')
   .version('1.0.0')
   .option('-f, --file <path>', 'Caminho para arquivo JSON da NFT', 'drafts/template.json')
-  .option('-n, --network <network>', 'Rede blockchain (polygon, ethereum, base, mumbai)', 'mumbai')
+  .option('-n, --network <network>', 'Rede blockchain (monad, polygon, ethereum, base, mumbai)', 'monad')
   .option('--dry-run', 'Apenas simula sem fazer mint', false)
   .option('--skip-upload', 'Pula upload IPFS (usa CIDs existentes)', false)
   .parse();

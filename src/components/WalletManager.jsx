@@ -64,15 +64,15 @@ export default function WalletManager({ onWalletSelect }) {
       name: newWallet.name,
       address: newWallet.address.toLowerCase(),
       network: newWallet.network,
-      notes: newWallet.notes || '',
-      createdAt: new Date().toISOString(),
-      isFavorite: false
-    };
+    notes: newWallet.notes || '',
+    createdAt: new Date().toISOString(),
+    isFavorite: false
+  };
 
-    const updated = [...wallets, wallet];
-    saveWallets(updated);
-    
-    setNewWallet({ name: '', address: '', network: 'mumbai', notes: '' });
+  const updated = [...wallets, wallet];
+  saveWallets(updated);
+  
+  setNewWallet({ name: '', address: '', network: 'monad', notes: '' });
     setShowAddForm(false);
   };
 
@@ -130,6 +130,7 @@ export default function WalletManager({ onWalletSelect }) {
 
   const getNetworkName = (network) => {
     const networks = {
+      monad: 'Monad Testnet',
       mumbai: 'Mumbai Testnet',
       polygon: 'Polygon',
       ethereum: 'Ethereum',
@@ -140,6 +141,7 @@ export default function WalletManager({ onWalletSelect }) {
 
   const getExplorerUrl = (address, network) => {
     const explorers = {
+      monad: `https://testnet.monadexplorer.com/address/${address}`,
       mumbai: `https://mumbai.polygonscan.com/address/${address}`,
       polygon: `https://polygonscan.com/address/${address}`,
       ethereum: `https://etherscan.io/address/${address}`,
@@ -203,6 +205,7 @@ export default function WalletManager({ onWalletSelect }) {
                 onChange={(e) => setNewWallet({ ...newWallet, network: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/10 text-white border border-white/30 focus:border-blue-400 focus:outline-none"
               >
+                <option value="monad">Monad Testnet (Padrão)</option>
                 <option value="mumbai">Mumbai Testnet</option>
                 <option value="polygon">Polygon Mainnet</option>
                 <option value="base">Base</option>

@@ -4,7 +4,7 @@ import { Wallet, Zap, ExternalLink, Copy, CheckCircle } from 'lucide-react';
 export default function MintInterface() {
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState(null);
-  const [network, setNetwork] = useState('mumbai');
+  const [network, setNetwork] = useState('monad');
   const [tokenURI, setTokenURI] = useState('');
   const [contractAddress, setContractAddress] = useState('');
   const [minting, setMinting] = useState(false);
@@ -12,6 +12,7 @@ export default function MintInterface() {
   const [copied, setCopied] = useState(false);
 
   const NETWORKS = {
+    monad: { chainId: 10143, name: 'Monad Testnet' },
     polygon: { chainId: 137, name: 'Polygon' },
     ethereum: { chainId: 1, name: 'Ethereum' },
     base: { chainId: 8453, name: 'Base' },
@@ -82,6 +83,13 @@ export default function MintInterface() {
 
   const getChainConfig = (chainId) => {
     const configs = {
+      10143: {
+        chainId: '0x2797',
+        chainName: 'Monad Testnet',
+        nativeCurrency: { name: 'MON', symbol: 'MON', decimals: 18 },
+        rpcUrls: ['https://testnet-rpc.monad.xyz'],
+        blockExplorerUrls: ['https://testnet.monadexplorer.com']
+      },
       137: {
         chainId: '0x89',
         chainName: 'Polygon Mainnet',
@@ -97,7 +105,7 @@ export default function MintInterface() {
         blockExplorerUrls: ['https://mumbai.polygonscan.com']
       }
     };
-    return configs[chainId] || configs[80001];
+    return configs[chainId] || configs[10143];
   };
 
   const mintNFT = async () => {
@@ -208,21 +216,22 @@ export default function MintInterface() {
         {/* Seleção de Rede */}
         <div>
           <label className="block text-white mb-2 font-medium">Rede Blockchain</label>
-          <select
-            value={network}
-            onChange={(e) => {
-              setNetwork(e.target.value);
-              if (account && targetChainId) {
-                switchNetwork(targetChainId);
-              }
-            }}
-            className="w-full px-4 py-3 rounded-lg bg-white/10 text-white border border-white/30 focus:border-blue-400 focus:outline-none"
-          >
-            <option value="mumbai">Mumbai Testnet (Teste)</option>
-            <option value="polygon">Polygon Mainnet</option>
-            <option value="base">Base</option>
-            <option value="ethereum">Ethereum Mainnet</option>
-          </select>
+            <select
+              value={network}
+              onChange={(e) => {
+                setNetwork(e.target.value);
+                if (account && targetChainId) {
+                  switchNetwork(targetChainId);
+                }
+              }}
+              className="w-full px-4 py-3 rounded-lg bg-white/10 text-white border border-white/30 focus:border-blue-400 focus:outline-none"
+            >
+              <option value="monad">Monad Testnet (Teste)</option>
+              <option value="mumbai">Mumbai Testnet</option>
+              <option value="polygon">Polygon Mainnet</option>
+              <option value="base">Base</option>
+              <option value="ethereum">Ethereum Mainnet</option>
+            </select>
           {account && !isCorrectNetwork && targetChainId && (
             <p className="text-yellow-300 text-sm mt-2">
               ⚠️ Troque para {NETWORKS[network].name} na MetaMask
@@ -306,7 +315,7 @@ export default function MintInterface() {
                 <p className="text-white/60 text-xs mb-1">Hash da Transação:</p>
                 <code className="text-white text-xs break-all">{mintResult.txHash}</code>
                 <a
-                  href={`https://mumbai.polygonscan.com/tx/${mintResult.txHash}`}
+                  href={`${network === 'monad' ? 'https://testnet.monadexplorer.com/tx/' : network === 'mumbai' ? 'https://mumbai.polygonscan.com/tx/' : 'https://polygonscan.com/tx/'}${mintResult.txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ml-2 text-blue-400 hover:text-blue-300"
