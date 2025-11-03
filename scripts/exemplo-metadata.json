@@ -1,0 +1,30 @@
+{
+  "name": "NFT Exemplo #001",
+  "description": "Uma NFT de exemplo criada para teste do sistema",
+  "image": "ipfs://[SUBSTITUA_PELO_CID_DA_IMAGEM]",
+  "external_url": "",
+  "attributes": [
+    {
+      "trait_type": "Cor",
+      "value": "Azul"
+    },
+    {
+      "trait_type": "Raridade",
+      "value": "Comum"
+    },
+    {
+      "trait_type": "Categoria",
+      "value": "Arte Digital"
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Data de Criação",
+      "value": 1735689600
+    }
+  ],
+  "properties": {
+    "creator": "Tech Neo NFT Manager",
+    "created_at": "2024-12-31T00:00:00Z"
+  }
+}
+

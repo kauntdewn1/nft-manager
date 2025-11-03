@@ -1,0 +1,30 @@
+{
+  "name": "Flow Reborn – Ritual 03:25",
+  "description": "Miniatura emocional do setup que deu origem à ruptura.",
+  "image": "./images/flow-reborn.jpg",
+  "external_url": "https://neoflow.site/ritual",
+  "attributes": [
+    {
+      "trait_type": "Hora",
+      "value": "03:25"
+    },
+    {
+      "trait_type": "Setup",
+      "value": "NEØ Original"
+    },
+    {
+      "trait_type": "Ritual",
+      "value": "Desconexão Consciente"
+    },
+    {
+      "trait_type": "Estado",
+      "value": "Transição"
+    }
+  ],
+  "properties": {
+    "creator": "NEØ",
+    "collection": "Flow Reborn",
+    "created_at": "2024-12-31"
+  }
+}
+

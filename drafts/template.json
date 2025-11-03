@@ -1,0 +1,25 @@
+{
+  "name": "NFT Nome Aqui",
+  "description": "Descrição completa da NFT",
+  "image": "./images/nome-imagem.jpg",
+  "external_url": "https://seu-site.com/nft-slug",
+  "attributes": [
+    {
+      "trait_type": "Categoria",
+      "value": "Arte Digital"
+    },
+    {
+      "trait_type": "Raridade",
+      "value": "Único"
+    },
+    {
+      "trait_type": "Ano",
+      "value": "2024"
+    }
+  ],
+  "properties": {
+    "creator": "NEØ",
+    "collection": "Tech Neo NFT"
+  }
+}
+
