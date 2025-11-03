@@ -12,7 +12,8 @@
     "ipfs:upload": "node scripts/cli-upload.js",
     "ipfs:check": "node scripts/cli-upload.js check",
     "mint": "node scripts/mint.js",
-    "mint:draft": "node scripts/mint.js --file=drafts/template.json"
+    "mint:draft": "node scripts/mint.js --file=drafts/template.json",
+    "nft:query": "node scripts/alchemy-nft-query.js"
   },
   "bin": {
     "ipfs-upload": "./scripts/cli-upload.js"

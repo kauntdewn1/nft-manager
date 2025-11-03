@@ -17,6 +17,7 @@ export default function NFTViewer({ walletAddress }) {
     setError(null);
 
     try {
+      // Tentar Blockvision API primeiro (Monad Testnet)
       const response = await fetch(
         `https://api.blockvision.org/v2/monad/account/nfts?address=${addr}&pageIndex=1`
       );
@@ -50,9 +51,21 @@ export default function NFTViewer({ walletAddress }) {
         setError(data.reason || 'Nenhuma NFT encontrada');
       }
     } catch (err) {
-      console.error('Erro ao buscar NFTs:', err);
-      setError('Erro ao buscar NFTs. Verifique o endereço ou tente novamente.');
-      setNfts([]);
+      console.error('Erro ao buscar NFTs (Blockvision):', err);
+      
+      // Fallback: tentar buscar via backend se Alchemy estiver configurado
+      try {
+        const backendResponse = await fetch(`/api/nfts/${addr}`);
+        if (backendResponse.ok) {
+          const backendData = await backendResponse.json();
+          setNfts(backendData.nfts || []);
+        } else {
+          throw new Error('Backend não disponível');
+        }
+      } catch (backendErr) {
+        setError('Erro ao buscar NFTs. Verifique o endereço ou tente novamente.');
+        setNfts([]);
+      }
     } finally {
       setLoading(false);
     }

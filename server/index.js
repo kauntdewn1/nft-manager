@@ -275,10 +275,88 @@ app.post('/api/ipfs/create-nft', upload.single('file'), async (req, res) => {
   }
 });
 
+// Rota para buscar NFTs de uma wallet (via Alchemy ou Blockvision)
+app.get('/api/nfts/:address', async (req, res) => {
+  try {
+    const { address } = req.params;
+    
+    if (!address || !address.startsWith('0x') || address.length !== 42) {
+      return res.status(400).json({ error: 'Endereço inválido' });
+    }
+
+    // Tentar Blockvision API (Monad Testnet)
+    try {
+      const response = await fetch(
+        `https://api.blockvision.org/v2/monad/account/nfts?address=${address}&pageIndex=1`
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        if (data.code === 0 && data.result && data.result.data) {
+          const allNFTs = [];
+          data.result.data.forEach((collection) => {
+            if (collection.items && collection.items.length > 0) {
+              collection.items.forEach((item) => {
+                allNFTs.push({
+                  ...item,
+                  collectionName: collection.name,
+                  collectionAddress: collection.contractAddress,
+                  verified: collection.verified,
+                  image: item.image || collection.image
+                });
+              });
+            }
+          });
+          
+          return res.json({ nfts: allNFTs, source: 'blockvision' });
+        }
+      }
+    } catch (blockvisionError) {
+      console.log('Blockvision API não disponível, tentando outras opções...');
+    }
+
+    // Se Alchemy API Key estiver configurada, tentar usar
+    const alchemyKey = process.env.ALCHEMY_API_KEY;
+    if (alchemyKey && alchemyKey !== 'demo') {
+      try {
+        const baseURL = process.env.ALCHEMY_BASE_URL || `https://eth-mainnet.g.alchemy.com/nft/v3/${alchemyKey}`;
+        const response = await fetch(`${baseURL}/getNFTsForOwner?owner=${address}&pageSize=100`);
+        
+        if (response.ok) {
+          const data = await response.json();
+          const nfts = (data.ownedNfts || []).map(nft => ({
+            name: nft.name || `NFT #${nft.tokenId}`,
+            tokenId: nft.tokenId,
+            contractAddress: nft.contract.address,
+            collectionName: nft.collection?.name || 'Unknown',
+            image: nft.image?.originalUrl || nft.rawMetadata?.image,
+            tokenType: nft.tokenType,
+            verified: false
+          }));
+          
+          return res.json({ nfts, source: 'alchemy', totalCount: data.totalCount });
+        }
+      } catch (alchemyError) {
+        console.error('Erro ao usar Alchemy API:', alchemyError);
+      }
+    }
+
+    res.json({ nfts: [], source: 'none', message: 'Nenhuma API disponível' });
+  } catch (error) {
+    console.error('Erro ao buscar NFTs:', error);
+    res.status(500).json({ 
+      error: 'Erro ao buscar NFTs', 
+      message: error.message 
+    });
+  }
+});
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor backend rodando em http://localhost:${PORT}`);
   console.log(`📡 API IPFS disponível em http://localhost:${PORT}/api/ipfs`);
   console.log(`💚 Health check: http://localhost:${PORT}/health`);
+  console.log(`🔍 NFT API: http://localhost:${PORT}/api/nfts/:address`);
 });
 
