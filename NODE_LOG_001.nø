@@ -1,0 +1,344 @@
+# NODE_LOG_001.nø
+
+protocolo: NΞØ | tipo: readme-legacy | autor: node-mellø | hash: 0x6e656f6d696e74
+
+## 1. Identificação
+
+Título original: NEØ.MINT — Ritual Engine v1.0
+Versão: 1.0.0
+Licença: MIT
+Autor: @kauntdewn1
+Repositório base: https://github.com/kauntdewn1/nft-manager
+
+---
+
+## 2. Core Function
+
+**Ritual Engine para codificação simbólica de NFTs**
+
+O `NEØ.MINT` é mais que um sistema. É um **rito digital**.
+Cada token nasce como bloco narrativo, gravado em IPFS e selado na blockchain.
+A execução do código é também um ato performativo — um acordo entre máquina e intenção.
+
+> "Você não está criando NFT. Está **mintando vestígios de presença**."
+
+---
+
+## 3. Stack Tecnológica
+
+### Frontend
+- React 18.2.0
+- Vite (build tool)
+- Tailwind CSS (estilização)
+- Lucide React (ícones)
+
+### Backend
+- Node.js
+- Express.js (API server)
+- IPFS HTTP Client (storage descentralizado)
+- Multer (upload de arquivos)
+
+### Blockchain
+- Ethers.js 6.9.0 (interação EVM)
+- Solidity (contratos ERC-721)
+- MetaMask (wallet integration)
+
+### APIs Externas
+- Alchemy NFT API (busca de NFTs)
+- Blockvision API (Monad Testnet NFTs)
+
+### Ferramentas
+- Commander.js (CLI)
+- Chalk (terminal styling)
+- Axios (HTTP client)
+- Dotenv (variáveis de ambiente)
+
+---
+
+## 4. Estrutura do Sistema
+
+```
+neo.mint/
+├── src/
+│   ├── components/
+│   │   ├── NFTManager.jsx      # Interface principal
+│   │   ├── MintInterface.jsx    # Mint via MetaMask
+│   │   ├── WalletManager.jsx    # Gerenciador de wallets
+│   │   └── NFTViewer.jsx        # Visualizador de NFTs
+│   ├── main.jsx
+│   └── index.css
+├── server/
+│   └── index.js                 # API Express + IPFS
+├── scripts/
+│   ├── ipfs-client.js           # Cliente IPFS
+│   ├── cli-upload.js            # CLI upload
+│   ├── mint.js                  # Sistema NEØ.MINT CLI
+│   ├── alchemy-nft-query.js    # Query Alchemy API
+│   └── contracts/
+│       └── NFT.sol              # Contrato ERC-721
+├── drafts/                      # Templates JSON
+│   ├── template.json
+│   ├── flowreborn-exemplo.json
+│   └── nft-criacao-rapida.json
+├── .env                         # Configurações
+└── package.json
+```
+
+⛃ O repositório é tanto ferramenta quanto arquivo vivo da rede.
+
+---
+
+## 5. Funcionalidades NΞØ Core
+
+### 5.1 Criação de NFTs
+- ✅ Upload de imagens/vídeos para IPFS
+- ✅ Geração automática de metadata JSON
+- ✅ Atributos customizáveis (trait_type/value)
+- ✅ Persistência local (localStorage)
+- ✅ Interface React moderna
+
+### 5.2 Mint na Blockchain
+- ✅ Integração MetaMask
+- ✅ Suporte múltiplas redes (Monad, Polygon, Base, Ethereum)
+- ✅ Mint direto via interface web
+- ✅ CLI automatizado (`scripts/mint.js`)
+- ✅ Contrato ERC-721 padronizado
+
+### 5.3 Gerenciamento de Wallets
+- ✅ Cadastro múltiplas wallets
+- ✅ Favoritar wallets
+- ✅ Edição/remoção de wallets
+- ✅ Persistência local
+
+### 5.4 Visualização de NFTs
+- ✅ Busca NFTs por endereço (Monad Testnet)
+- ✅ Integração Blockvision API
+- ✅ Fallback Alchemy API
+- ✅ Links para explorer
+
+### 5.5 Ferramentas CLI
+- ✅ Upload direto IPFS (`scripts/cli-upload.js`)
+- ✅ Sistema NEØ.MINT completo (`scripts/mint.js`)
+- ✅ Demo Alchemy API (`demo-script.js`)
+
+---
+
+## 6. Redes Suportadas
+
+| Rede             | Chain ID | Explorer                      | Status      |
+| ---------------- | -------- | ----------------------------- | ----------- |
+| Monad Testnet    | 41400    | https://explorer.monad.xyz    | ⭐ Padrão   |
+| Mumbai (Polygon) | 80001    | https://mumbai.polygonscan.com | Teste       |
+| Polygon Mainnet  | 137      | https://polygonscan.com       | Produção    |
+| Base              | 8453     | https://basescan.org          | Produção    |
+| Ethereum Mainnet | 1        | https://etherscan.io          | Produção    |
+
+---
+
+## 7. Instalação e Execução
+
+### Pré-requisitos
+```bash
+# Node.js 18+
+node --version
+
+# IPFS daemon local
+brew install ipfs  # macOS
+ipfs init
+ipfs daemon        # manter rodando
+```
+
+### Setup
+```bash
+git clone https://github.com/kauntdewn1/nft-manager.git
+cd nft-manager
+npm install
+```
+
+### Configuração `.env`
+```bash
+cp .env.example .env
+# Edite .env com suas chaves:
+# - ALCHEMY_API_KEY
+# - NFT_CONTRACT_ADDRESS
+# - IPFS_HOST, IPFS_PORT, IPFS_PROTOCOL
+```
+
+### Execução
+```bash
+# Desenvolvimento completo (frontend + backend)
+npm run dev:full
+
+# Apenas frontend
+npm run dev
+
+# Apenas backend
+npm run server
+
+# Build produção
+npm run build
+npm run preview
+```
+
+### CLI Tools
+```bash
+# Upload para IPFS
+node scripts/cli-upload.js upload-file ./path/to/image.png
+
+# Mint completo (NEØ.MINT)
+node scripts/mint.js --file=drafts/template.json --network=monad
+
+# Demo Alchemy API
+node demo-script.js vitalik.eth
+```
+
+---
+
+## 8. Contrato Inteligente
+
+**Padrão:** ERC-721 (OpenZeppelin)
+**Localização:** `scripts/contracts/NFT.sol`
+
+### Funções Principais
+- `mint(address to, string memory uri)` - Mint NFT
+- `tokenURI(uint256 tokenId)` - Retorna URI metadata
+- `ownerOf(uint256 tokenId)` - Verifica proprietário
+
+### Deploy
+Manual via [Remix IDE](https://remix.ethereum.org)
+
+1. Cole `NFT.sol` no Remix
+2. Compile
+3. Deploy na rede escolhida (Monad Testnet recomendado)
+4. Copie `NFT_CONTRACT_ADDRESS` para `.env`
+
+◍ Cada `mint` grava uma presença imutável.
+Hash = assinatura digital de intenção.
+
+---
+
+## 9. Fluxo de Trabalho Completo
+
+### 9.1 Criação via Interface Web
+1. Acesse `http://localhost:3000`
+2. Preencha nome, descrição, arquivo
+3. Adicione atributos (opcional)
+4. Clique em "Criar NFT no IPFS"
+5. NFT salva localmente com hash IPFS
+
+### 9.2 Mint na Blockchain
+1. Vá para aba "Mint"
+2. Conecte MetaMask
+3. Selecione rede (Monad Testnet)
+4. Cole hash IPFS da NFT
+5. Clique em "Mint NFT"
+6. Confirme transação no MetaMask
+
+### 9.3 Fluxo CLI (Automático)
+```bash
+# 1. Crie arquivo JSON em drafts/
+{
+  "name": "Minha NFT",
+  "description": "...",
+  "image": "./images/minha-arte.png",
+  "attributes": [...]
+}
+
+# 2. Execute mint.js
+node scripts/mint.js --file=drafts/minha-nft.json --network=monad
+
+# 3. Sistema faz:
+# - Upload imagem → IPFS
+# - Gera metadata → IPFS  
+# - Prepara mint
+# - Retorna links (OpenSea, Explorer, Embed)
+```
+
+---
+
+## 10. APIs e Integrações
+
+### IPFS (Local)
+- Endpoint: `http://localhost:5001`
+- Protocolo: HTTP API
+- Funções: Upload arquivos, JSON, diretórios
+
+### Alchemy NFT API
+- Base: `https://eth-mainnet.g.alchemy.com/nft/v3/{API_KEY}`
+- Endpoints:
+  - `getNFTsForOwner` - Lista NFTs de um endereço
+  - `getNFTMetadata` - Metadados de NFT específica
+
+### Blockvision API (Monad)
+- Endpoint: `https://api.blockvision.org/v2/monad/account/nfts`
+- Uso: Buscar NFTs na Monad Testnet
+
+---
+
+## 11. Documentação Adicional
+
+- `COMO_MINTAR.md` - Guia simplificado de minting
+- `ENV_SETUP.md` - Configuração de variáveis
+- `scripts/MINT_README.md` - Documentação CLI mint
+- `README.md` - Documentação geral do projeto
+
+---
+
+## 12. Estado Atual do Sistema
+
+### ✅ Implementado
+- [x] Interface React completa
+- [x] Integração IPFS local
+- [x] Sistema de mint via MetaMask
+- [x] Gerenciador de wallets
+- [x] Visualizador de NFTs (Monad)
+- [x] CLI tools (upload, mint)
+- [x] Integração Alchemy API
+- [x] Suporte Monad Testnet
+
+### 🚧 Pendente
+- [ ] Deploy contrato na Monad Testnet
+- [ ] Testes automatizados
+- [ ] Interface de pagamento
+- [ ] Marketplace integration
+- [ ] Multi-signature wallets
+
+---
+
+## 13. Licença
+
+**CSL-∞ (Creative Sovereignty License)**
+
+```
+Você pode usar, estudar, remixar e distribuir este código
+desde que:
+
+1. Preserve o crédito ao autor e à rede NΞØ.
+2. Mantenha o propósito cultural e simbólico original.
+3. Não comercialize sem reinvestir parte dos lucros na rede.
+4. Respeite o código como arte viva, não mercadoria.
+```
+
+> CSL-∞ é um modelo híbrido entre MIT e Creative Commons, adaptado à Web3.
+> Protege tanto o código quanto o **ato ritual** de criação.
+
+---
+
+## 14. Assinatura
+
+**protocolo: NΞØ**
+`hash: 0x6e656f6d696e74`
+node: mellø.synapse
+rede: EVM/IPFS | estado: ativo
+versão: 1.0.0 | data: 2025-01-21
+
+> "Não vendemos JPEG. Codificamos presença."
+
+---
+
+⛃ A cada fork, o protocolo cresce.
+A cada mint, uma memória desperta.
+A cada linha de código, o ritual continua.
+
+፨
+
