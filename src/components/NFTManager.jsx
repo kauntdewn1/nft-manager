@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Upload, Image, FileText, Send, Database, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import MintInterface from './MintInterface.jsx';
 import WalletManager from './WalletManager.jsx';
+import NFTViewer from './NFTViewer.jsx';
 
 export default function NFTManager() {
   const [nfts, setNfts] = useState([]);
@@ -236,6 +237,16 @@ export default function NFTManager() {
           >
             Wallets
           </button>
+          <button
+            onClick={() => setActiveTab('viewer')}
+            className={`px-6 py-3 font-medium transition-colors ${
+              activeTab === 'viewer'
+                ? 'text-white border-b-2 border-yellow-400'
+                : 'text-white/60 hover:text-white'
+            }`}
+          >
+            Minhas NFTs
+          </button>
         </div>
 
         {/* Conteúdo das Tabs */}
@@ -448,6 +459,12 @@ export default function NFTManager() {
         {activeTab === 'wallets' && (
           <div className="max-w-4xl mx-auto">
             <WalletManager onWalletSelect={setSelectedWallet} />
+          </div>
+        )}
+
+        {activeTab === 'viewer' && (
+          <div className="max-w-6xl mx-auto">
+            <NFTViewer walletAddress={selectedWallet} />
           </div>
         )}
 

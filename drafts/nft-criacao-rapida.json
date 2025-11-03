@@ -1,0 +1,30 @@
+{
+  "name": "NFT NEO - Primeira Mint",
+  "description": "NFT criada para o primeiro mint na Monad Testnet usando o sistema NEØ.MINT",
+  "image": "ipfs://QmZgKkh2ZDaHHNoahokUYtZjT9Yu6Br4b8Xkcho3HHmfhx",
+  "external_url": "",
+  "attributes": [
+    {
+      "trait_type": "Coleção",
+      "value": "Tech Neo NFT"
+    },
+    {
+      "trait_type": "Rede",
+      "value": "Monad Testnet"
+    },
+    {
+      "trait_type": "Tipo",
+      "value": "Arte Digital"
+    },
+    {
+      "trait_type": "Primeira Mint",
+      "value": "Sim"
+    }
+  ],
+  "properties": {
+    "creator": "NEØ",
+    "created_at": "2024-12-31",
+    "platform": "NEØ.MINT v1.0"
+  }
+}
+
